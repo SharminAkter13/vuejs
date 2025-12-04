@@ -1,11 +1,42 @@
+<script>
+export default {
+
+  data() {
+    return {
+      count: 0
+    }
+  },
+
+  methods: {
+    increment() {
+      this.count++
+    }
+  },
+  
+
+  mounted() {
+    console.log(`The initial count is ${this.count}.`)
+  }
+}
+</script>
+
 <template>
-  <div class="p-3 bg-light rounded-3 shadow-sm">
-    <h1 class="display-4 border-bottom pb-2 mb-4">About Page</h1>
-    
-    <p class="lead">Welcome to your Vue 3 app with Router!</p>
-    
-    <div class="mt-4">
-        <p>This is About Page.</p>
-    </div>
+  <div id="app">
+  <h1>To Start Count Click The Button-></h1>
+     <button @click="increment">Count is: {{ count }}</button>
   </div>
 </template>
+
+<style>
+button {
+  padding: 10px;
+  font-size: 18px;
+  background-color:blue;
+  color:white;
+  font-weight:bold;
+}
+h1{
+  color:green;
+  padding:10px;
+}
+</style>

@@ -21,6 +21,9 @@
               <li class="nav-item">
                 <router-link to="/contact" class="nav-link" active-class="active">Contact</router-link>
               </li>
+              <li class="nav-item">
+                <router-link to="/theme" class="nav-link" active-class="active">Theme</router-link>
+              </li>
             </ul>
           </div>
         </div>

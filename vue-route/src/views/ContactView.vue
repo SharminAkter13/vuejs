@@ -1,11 +1,69 @@
+<script>
+export default {
+  data() {
+    return {
+      // String text
+      message: "Hello Vue!",
+
+      // Object
+      user: {
+        name: "John Doe",
+        age: 25,
+        isAdmin: false
+      },
+
+      // Array
+      items: ["Apple", "Banana", "Mango"],
+
+      // For ternary example
+      isActive: true
+    }
+  },
+
+  methods: {
+    toggleActive() {
+      this.isActive = !this.isActive
+    }
+  }
+}
+</script>
+
 <template>
-  <div class="p-3 bg-info rounded-3 shadow-sm">
-    <h1 class="display-4 border-bottom pb-2 mb-4">Contact Page</h1>
-    
-    <p class="lead">Welcome to your Vue 3 app with Router!</p>
-    
-    <div class="mt-4">
-        <p>This is Contact Page .</p>
-    </div>
+  <div>
+
+    <!-- String Text -->
+    <h2>Message: {{ message }}</h2>
+
+    <!-- Object -->
+    <h3>User Info:</h3>
+    <p>Name: {{ user.name }}</p>
+    <p>Age: {{ user.age }}</p>
+
+    <!-- Using ternary inside template -->
+    <p>Role: {{ user.isAdmin ? "Admin" : "Normal User" }}</p>
+
+    <!-- Array Loop -->
+    <h3>Fruits List:</h3>
+    <ul>
+      <li v-for="(fruit, index) in items" :key="index">
+        {{ fruit }}
+      </li>
+    </ul>
+
+    <!-- Ternary + Style Example -->
+    <button @click="toggleActive">
+      {{ isActive ? "Active" : "Inactive" }}
+    </button>
+
+    <p :style="{ color: isActive ? 'green' : 'red' }">
+      Status: {{ isActive ? "Enabled" : "Disabled" }}
+    </p>
+
   </div>
 </template>
+
+<style>
+h2, h3 {
+  color: blue;
+}
+</style>
