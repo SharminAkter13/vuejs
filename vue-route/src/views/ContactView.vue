@@ -3,7 +3,7 @@ export default {
   data() {
     return {
       // String text
-      message: "Hello Vue!",
+      message: "Welcome To The Page",
 
       // Object
       user: {
