@@ -38,17 +38,13 @@ export default {
     <h3>User Info:</h3>
     <p>Name: {{ user.name }}</p>
     <p>Age: {{ user.age }}</p>
-
-    <!-- Using ternary inside template -->
     <p>Role: {{ user.isAdmin ? "Admin" : "Normal User" }}</p>
 
     <!-- Array Loop -->
-    <h3>Fruits List:</h3>
-    <ul>
-      <li v-for="(fruit, index) in items" :key="index">
-        {{ fruit }}
-      </li>
-    </ul>
+    <h3>Fruits List:  {{ items }}</h3>
+    
+      
+   
 
     <!-- Ternary + Style Example -->
     <button @click="toggleActive">
