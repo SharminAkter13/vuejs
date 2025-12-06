@@ -2,13 +2,13 @@
     <div class="content-body">
         <div class="container-fluid">
             <div class="row page-titles mx-0">
-                <div class="col-sm-6 p-md-0">
+                <div class="col-sm-4 p-md-0">
                     <div class="welcome-text">
                         <h4>Contact List</h4>
                         <p class="mb-0">A directory of all active users in the system.</p>
                     </div>
                 </div>
-                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <div class="col-sm-4 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">App</a></li>
                         <li class="breadcrumb-item active"><a href="javascript:void(0)">Contacts</a></li>
@@ -17,7 +17,7 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-3 col-lg-4 col-sm-6" v-for="contact in contacts" :key="contact.id">
+                <div class="col-xl-3 col-lg-4 col-sm-4" v-for="contact in contacts" :key="contact.id">
                     <div class="card">
                         <div class="card-body contact-card">
                             <div class="card-title text-center">
@@ -65,7 +65,7 @@ export default {
                     name: "Alex Smith",
                     title: "Lead Developer",
                     image: "./images/avatar/1.png", // Use local paths from your theme
-                    phone: "+1 (555) 123-4567",
+                    phone: "+1 (555) 123-4547",
                     email: "alex@example.com",
                     location: "New York, USA"
                 },
