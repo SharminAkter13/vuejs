@@ -32,7 +32,8 @@ export default {
   <div>
 
     <!-- String Text -->
-    <h2>Message: {{ message }}</h2>
+    <h2>Message:</h2>
+    <p> {{ message }}</p>
 
     <!-- Object -->
     <h3>User Info:</h3>
