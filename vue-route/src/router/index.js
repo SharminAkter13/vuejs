@@ -21,11 +21,7 @@ const routes = [
     name: 'home',
     component: HomeView
   },
-  {
-    path: '/contact',
-    name: 'contact',
-    component: ContactView
-  },
+ 
   {
     path: '/about',
     name: 'about',
@@ -52,6 +48,11 @@ const routes = [
         name: 'dashboard',
         component: DashboardView 
       },
+       {
+    path: '/contact',
+    name: 'contact',
+    component: ContactView
+  },
       // You would add other protected pages here, e.g.:
       /*
       { 
