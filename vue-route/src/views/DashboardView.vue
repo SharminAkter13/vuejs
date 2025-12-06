@@ -1,63 +1,27 @@
 <template>
  <div class="content-body">
-            <!-- row -->
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-3 col-sm-6">
+                    <div class="col-lg-3 col-sm-6" v-for="(stat, index) in statWidgets" :key="'stat-' + index">
                         <div class="card">
                             <div class="stat-widget-two card-body">
                                 <div class="stat-content">
-                                    <div class="stat-text">Today Expenses </div>
-                                    <div class="stat-digit"> <i class="fa fa-usd"></i>8500</div>
+                                    <div class="stat-text">{{ stat.text }}</div>
+                                    <div class="stat-digit"> <i class="fa fa-usd"></i>{{ stat.value }}</div>
                                 </div>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-success w-85" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div 
+                                        :class="['progress-bar', stat.progressClass, 'w-' + stat.progressValue]" 
+                                        role="progressbar" 
+                                        :aria-valuenow="stat.progressValue" 
+                                        aria-valuemin="0" 
+                                        aria-valuemax="100">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="stat-widget-two card-body">
-                                <div class="stat-content">
-                                    <div class="stat-text">Income Detail</div>
-                                    <div class="stat-digit"> <i class="fa fa-usd"></i>7800</div>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-primary w-75" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="stat-widget-two card-body">
-                                <div class="stat-content">
-                                    <div class="stat-text">Task Completed</div>
-                                    <div class="stat-digit"> <i class="fa fa-usd"></i> 500</div>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-warning w-50" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="stat-widget-two card-body">
-                                <div class="stat-content">
-                                    <div class="stat-text">Task Completed</div>
-                                    <div class="stat-digit"> <i class="fa fa-usd"></i>650</div>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-danger w-65" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /# card -->
-                    </div>
-                    <!-- /# column -->
-                </div>
                 <div class="row">
                     <div class="col-xl-8 col-lg-8 col-md-8">
                         <div class="card">
@@ -241,8 +205,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /# card -->
-                    </div>
+                        </div>
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
@@ -271,73 +234,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr v-for="(order, index) in newOrders" :key="'order-' + index">
                                                 <td>
                                                     <div class="round-img">
-                                                        <a href=""><img width="35" src="./images/avatar/1.png" alt=""></a>
+                                                        <a href=""><img width="35" :src="order.image" alt=""></a>
                                                     </div>
                                                 </td>
-                                                <td>Lew Shawon</td>
-                                                <td><span>Dell-985</span></td>
-                                                <td><span>456 pcs</span></td>
-                                                <td><span class="badge badge-success">Done</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="round-img">
-                                                        <a href=""><img width="35" src="./images/avatar/1.png" alt=""></a>
-                                                    </div>
-                                                </td>
-                                                <td>Lew Shawon</td>
-                                                <td><span>Asus-565</span></td>
-                                                <td><span>456 pcs</span></td>
-                                                <td><span class="badge badge-warning">Pending</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="round-img">
-                                                        <a href=""><img width="35" src="./images/avatar/1.png" alt=""></a>
-                                                    </div>
-                                                </td>
-                                                <td>lew Shawon</td>
-                                                <td><span>Dell-985</span></td>
-                                                <td><span>456 pcs</span></td>
-                                                <td><span class="badge badge-success">Done</span></td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <div class="round-img">
-                                                        <a href=""><img width="35" src="./images/avatar/1.png" alt=""></a>
-                                                    </div>
-                                                </td>
-                                                <td>Lew Shawon</td>
-                                                <td><span>Asus-565</span></td>
-                                                <td><span>456 pcs</span></td>
-                                                <td><span class="badge badge-warning">Pending</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="round-img">
-                                                        <a href=""><img width="35" src="./images/avatar/1.png" alt=""></a>
-                                                    </div>
-                                                </td>
-                                                <td>lew Shawon</td>
-                                                <td><span>Dell-985</span></td>
-                                                <td><span>456 pcs</span></td>
-                                                <td><span class="badge badge-success">Done</span></td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <div class="round-img">
-                                                        <a href=""><img width="35" src="./images/avatar/1.png" alt=""></a>
-                                                    </div>
-                                                </td>
-                                                <td>Lew Shawon</td>
-                                                <td><span>Asus-565</span></td>
-                                                <td><span>456 pcs</span></td>
-                                                <td><span class="badge badge-warning">Pending</span></td>
+                                                <td>{{ order.name }}</td>
+                                                <td><span>{{ order.product }}</span></td>
+                                                <td><span>{{ order.quantity }}</span></td>
+                                                <td><span :class="['badge', order.statusClass]">{{ order.status }}</span></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -569,17 +475,49 @@
 
             </div>
         </div>
-        <!--**********************************
-            Content body end
-        ***********************************-->
         </template>
 
 <script>
-// Use the Composition API hook to run code after the DOM is ready
 
 export default {
     name: "DashboardView",
-   
+    data() {
+        return {
+            statWidgets: [
+                {
+                    text: "Today Expenses",
+                    value: 8500,
+                    progressValue: 85,
+                    progressClass: "progress-bar-success" // Matches green in image
+                },
+                {
+                    text: "Income Detail",
+                    value: 7800,
+                    progressValue: 78,
+                    progressClass: "progress-bar-primary" // Matches purple/blue in image
+                },
+                {
+                    text: "Task Completed",
+                    value: 500,
+                    progressValue: 50,
+                    progressClass: "progress-bar-warning" // Matches orange/yellow in image
+                },
+                {
+                    text: "Task Completed",
+                    value: 650,
+                    progressValue: 65,
+                    progressClass: "progress-bar-danger" // Matches red in image
+                },
+            ],
+            newOrders: [
+                { image: "./images/avatar/1.png", name: "Lew Shawon", product: "Dell-985", quantity: "456 pcs", status: "Done", statusClass: "badge-success" },
+                { image: "./images/avatar/1.png", name: "Lew Shawon", product: "Asus-565", quantity: "456 pcs", status: "Pending", statusClass: "badge-warning" },
+                { image: "./images/avatar/1.png", name: "John Doe", product: "MacBook-Pro", quantity: "12 pcs", status: "Done", statusClass: "badge-success" },
+                { image: "./images/avatar/1.png", name: "Jane Smith", product: "HP EliteBook", quantity: "50 pcs", status: "Pending", statusClass: "badge-warning" },
+                { image: "./images/avatar/1.png", name: "Alex Smith", product: "Monitor 24", quantity: "10 pcs", status: "Done", statusClass: "badge-success" },
+                { image: "./images/avatar/1.png", name: "Chris Lee", product: "USB Hub", quantity: "200 pcs", status: "Pending", statusClass: "badge-warning" },
+            ]
+        };
     }
-
+}
 </script>
