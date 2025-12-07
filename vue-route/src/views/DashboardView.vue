@@ -1,523 +1,253 @@
 <template>
- <div class="content-body">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-3 col-sm-6" v-for="(stat, index) in statWidgets" :key="'stat-' + index">
-                        <div class="card">
-                            <div class="stat-widget-two card-body">
-                                <div class="stat-content">
-                                    <div class="stat-text">{{ stat.text }}</div>
-                                    <div class="stat-digit"> <i class="fa fa-usd"></i>{{ stat.value }}</div>
-                                </div>
-                                <div class="progress">
-                                    <div 
-                                        :class="['progress-bar', stat.progressClass, 'w-' + stat.progressValue]" 
-                                        role="progressbar" 
-                                        :aria-valuenow="stat.progressValue" 
-                                        aria-valuemin="0" 
-                                        aria-valuemax="100">
-                                    </div>
+    <div class="content-body">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-6" v-for="(card, i) in statCards" :key="i">
+                    <div class="card">
+                        <div class="stat-widget-two card-body">
+                            <div class="stat-content">
+                                <div class="stat-text">{{ card.title }}</div>
+                                <div class="stat-digit"><i class="fa fa-usd"></i>{{ card.value }}</div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar"
+                                    :class="card.color"
+                                    :style="{ width: card.width }">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </div>
-                <div class="row">
-                    <div class="col-xl-8 col-lg-8 col-md-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Sales Overview</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Sales Overview</h4>
+                        </div>
+                        <div class="card-body">
+
+                            <div style="height:250px; background:#fff; border:1px solid #ddd; padding:20px;">
+                                <svg width="100%" height="200">
+                                    <line x1="0" y1="180" x2="100%" y2="180" stroke="#999" stroke-width="2"/>
+
+                                    <rect x="20" y="100" width="40" height="80" fill="#4e73df"/>
+                                    <rect x="90" y="60" width="40" height="120" fill="#1cc88a"/>
+                                    <rect x="160" y="130" width="40" height="50" fill="#36b9cc"/>
+                                    <rect x="230" y="20" width="40" height="160" fill="#f6c23e"/>
+                                    <rect x="300" y="90" width="40" height="90" fill="#e74a3b"/>
+
+                                    <text x="35" y="195" font-size="12">Jan</text>
+                                    <text x="105" y="195" font-size="12">Feb</text>
+                                    <text x="175" y="195" font-size="12">Mar</text>
+                                    <text x="245" y="195" font-size="12">Apr</text>
+                                    <text x="315" y="195" font-size="12">May</text>
+                                </svg>
                             </div>
-                            <div class="card-body">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h4 class="card-title">Customer Feedback</h4>
+                            <h2 class="mt-3">385,749</h2>
+
+                            <div style="width:140px; height:140px; margin: 20px auto; position:relative;">
+                                <svg width="140" height="140">
+                                    <circle cx="70" cy="70" r="60" stroke="#eee" stroke-width="20" fill="none"/>
+
+                                    <circle cx="70" cy="70" r="60" 
+                                            stroke="#1cc88a" 
+                                            stroke-width="20" 
+                                            fill="none"
+                                            stroke-dasharray="345"
+                                            stroke-dashoffset="27"
+                                            transform="rotate(-90 70 70)"/>
+
+                                    <circle cx="70" cy="70" r="60" 
+                                            stroke="#e74a3b" 
+                                            stroke-width="20" 
+                                            fill="none"
+                                            stroke-dasharray="30"
+                                            stroke-dashoffset="-318"
+                                            transform="rotate(-90 70 70)"/>
+                                </svg>
+
+                                <div style="position:absolute; top:52px; left:0; width:140px; text-align:center;">
+                                    <strong style="font-size:20px;">92%</strong>
+                                    <div style="font-size:12px; color:#777;">Positive</div>
+                                </div>
+                            </div>
+
+                            <ul class="widget-line-list">
+                                <li class="border-right">92% <br><span class="text-success">Positive</span></li>
+                                <li>8% <br><span class="text-danger">Negative</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header"><h4 class="card-title">Project</h4></div>
+                        <div class="card-body">
+                            <div v-for="(p, i) in projects" :key="i" class="py-2">
                                 <div class="row">
-                                    <div class="col-xl-12 col-lg-8">
-                                        <div id="morris-bar-chart"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-4">
-                        <div class="card">
-                            <div class="card-body text-center">
-                                <div class="m-t-10">
-                                    <h4 class="card-title">Customer Feedback</h4>
-                                    <h2 class="mt-3">385749</h2>
-                                </div>
-                                <div class="widget-card-circle mt-5 mb-5" id="info-circle-card">
-                                    <i class="ti-control-shuffle pa"></i>
-                                </div>
-                                <ul class="widget-line-list m-b-15">
-                                    <li class="border-right">92% <br><span class="text-success"><i
-                                                class="ti-hand-point-up"></i> Positive</span></li>
-                                    <li>8% <br><span class="text-danger"><i
-                                                class="ti-hand-point-down"></i>Negative</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Project</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="current-progress">
-                                    <div class="progress-content py-2">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="progress-text">Website</div>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <div class="current-progressbar">
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-primary w-40" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
-                                                            40%
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                    <div class="col-lg-4">{{ p.name }}</div>
+                                    <div class="col-lg-8">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-primary"
+                                                    :style="{ width: p.width }">
+                                                {{ p.percent }}%
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="progress-content py-2">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="progress-text">Android</div>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <div class="current-progressbar">
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-primary w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                                                            60%
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-content py-2">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="progress-text">Ios</div>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <div class="current-progressbar">
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-primary w-70" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                                                            70%
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-content py-2">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="progress-text">Mobile</div>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <div class="current-progressbar">
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-primary w-90" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                                            90%
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="testimonial-widget-one p-17">
-                                    <div class="testimonial-widget-one owl-carousel owl-theme">
-                                        <div class="item">
-                                            <div class="testimonial-content">
-                                                <div class="testimonial-text">
-                                                    <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-                                                    consectetur adipisicing elit.
-                                                    <i class="fa fa-quote-right"></i>
-                                                </div>
-                                                <div class="media">
-                                                    <div class="media-body">
-                                                        <div class="testimonial-author">TYRION LANNISTER</div>
-                                                        <div class="testimonial-author-position">Founder-Ceo. Dell Corp
-                                                        </div>
-                                                    </div>
-                                                    <img class="testimonial-author-img ml-3" src="./images/avatar/1.png" alt="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <div class="testimonial-content">
-                                                <div class="testimonial-text">
-                                                    <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-                                                    consectetur adipisicing elit.
-                                                    <i class="fa fa-quote-right"></i>
-                                                </div>
-                                                <div class="media">
-                                                    <div class="media-body">
-                                                        <div class="testimonial-author">TYRION LANNISTER</div>
-                                                        <div class="testimonial-author-position">Founder-Ceo. Dell Corp
-                                                        </div>
-                                                    </div>
-                                                    <img class="testimonial-author-img ml-3" src="./images/avatar/1.png" alt="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <div class="testimonial-content">
-                                                <div class="testimonial-text">
-                                                    <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-                                                    consectetur adipisicing elit.
-                                                    <i class="fa fa-quote-right"></i>
-                                                </div>
-                                                <div class="media">
-                                                    <div class="media-body">
-                                                        <div class="testimonial-author">TYRION LANNISTER</div>
-                                                        <div class="testimonial-author-position">Founder-Ceo. Dell Corp
-                                                        </div>
-                                                    </div>
-                                                    <img class="testimonial-author-img ml-3" src="./images/avatar/1.png" alt="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Web Server</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="cpu-load-chart">
-                                    <div id="cpu-load" class="cpu-load"></div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Country</h4>
-                            </div>
-                            <div class="card-body">
-                                <div id="vmap13" class="vmap"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">New Orders</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Name</th>
-                                                <th>Product</th>
-                                                <th>quantity</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="(order, index) in newOrders" :key="'order-' + index">
-                                                <td>
-                                                    <div class="round-img">
-                                                        <a href=""><img width="35" :src="order.image" alt=""></a>
-                                                    </div>
-                                                </td>
-                                                <td>{{ order.name }}</td>
-                                                <td><span>{{ order.product }}</span></td>
-                                                <td><span>{{ order.quantity }}</span></td>
-                                                <td><span :class="['badge', order.statusClass]">{{ order.status }}</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-6 col-xl-4 col-xxl-6 col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Timeline</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="widget-timeline">
-                                    <ul class="timeline">
-                                        <li>
-                                            <div class="timeline-badge primary"></div>
-                                            <a class="timeline-panel text-muted" href="#">
-                                                <span>10 minutes ago</span>
-                                                <h6 class="m-t-5">Youtube, a video-sharing website, goes live.</h6>
-                                            </a>
-                                        </li>
 
-                                        <li>
-                                            <div class="timeline-badge warning">
-                                            </div>
-                                            <a class="timeline-panel text-muted" href="#">
-                                                <span>20 minutes ago</span>
-                                                <h6 class="m-t-5">Mashable, a news website and blog, goes live.</h6>
-                                            </a>
-                                        </li>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p style="font-size:14px; line-height:21px;">
+                                <i class="fa fa-quote-left"></i>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                <i class="fa fa-quote-right"></i>
+                            </p>
 
-                                        <li>
-                                            <div class="timeline-badge danger">
-                                            </div>
-                                            <a class="timeline-panel text-muted" href="#">
-                                                <span>30 minutes ago</span>
-                                                <h6 class="m-t-5">Google acquires Youtube.</h6>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <div class="timeline-badge success">
-                                            </div>
-                                            <a class="timeline-panel text-muted" href="#">
-                                                <span>15 minutes ago</span>
-                                                <h6 class="m-t-5">StumbleUpon is acquired by eBay. </h6>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <div class="timeline-badge warning">
-                                            </div>
-                                            <a class="timeline-panel text-muted" href="#">
-                                                <span>20 minutes ago</span>
-                                                <h6 class="m-t-5">Mashable, a news website and blog, goes live.</h6>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <div class="timeline-badge dark">
-                                            </div>
-                                            <a class="timeline-panel text-muted" href="#">
-                                                <span>20 minutes ago</span>
-                                                <h6 class="m-t-5">Mashable, a news website and blog, goes live.</h6>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <div class="timeline-badge info">
-                                            </div>
-                                            <a class="timeline-panel text-muted" href="#">
-                                                <span>30 minutes ago</span>
-                                                <h6 class="m-t-5">Google acquires Youtube.</h6>
-                                            </a>
-                                        </li>
-                                    </ul>
+                            <div class="media mt-3">
+                                <div class="media-body">
+                                    <div class="testimonial-author">TYRION LANNISTER</div>
+                                    <div class="testimonial-author-position">Founder-Ceo. Dell Corp</div>
                                 </div>
+                                <img :src="avatar" width="50" class="ml-3" />
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-xxl-6 col-lg-6 col-md-6 col-sm-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Todo</h4>
-                            </div>
-                            <div class="card-body px-0">
-                                <div class="todo-list">
-                                    <div class="tdl-holder">
-                                        <div class="tdl-content widget-todo mr-4">
-                                            <ul id="todo_list">
-                                                <li><label><input type="checkbox"><i></i><span>Get up</span><a href='#'
-                                                            class="ti-trash"></a></label></li>
-                                                <li><label><input type="checkbox" checked><i></i><span>Stand up</span><a
-                                                            href='#' class="ti-trash"></a></label></li>
-                                                <li><label><input type="checkbox"><i></i><span>Don't give up the
-                                                            fight.</span><a href='#' class="ti-trash"></a></label></li>
-                                                <li><label><input type="checkbox" checked><i></i><span>Do something
-                                                            else</span><a href='#' class="ti-trash"></a></label></li>
-                                                <li><label><input type="checkbox" checked><i></i><span>Stand up</span><a
-                                                            href='#' class="ti-trash"></a></label></li>
-                                                <li><label><input type="checkbox"><i></i><span>Don't give up the
-                                                            fight.</span><a href='#' class="ti-trash"></a></label></li>
-                                            </ul>
-                                        </div>
-                                        <div class="px-4">
-                                            <input type="text" class="tdl-new form-control" placeholder="Write new item and hit 'Enter'...">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-12 col-xxl-6 col-xl-4 col-lg-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Product Sold</h4>
-                                <div class="card-action">
-                                    <div class="dropdown custom-dropdown">
-                                        <div data-toggle="dropdown">
-                                            <i class="ti-more-alt"></i>
-                                        </div>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">Option 1</a>
-                                            <a class="dropdown-item" href="#">Option 2</a>
-                                            <a class="dropdown-item" href="#">Option 3</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="chart py-4">
-                                    <canvas id="sold-product"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-12 col-xxl-6 col-lg-6 col-md-12">
-                        <div class="row">
-                            <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
-                                <div class="card">
-                                    <div class="social-graph-wrapper widget-facebook">
-                                        <span class="s-icon"><i class="fa fa-facebook"></i></span>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6 border-right">
-                                            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                                <h4 class="m-1"><span class="counter">89</span> k</h4>
-                                                <p class="m-0">Friends</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                                <h4 class="m-1"><span class="counter">119</span> k</h4>
-                                                <p class="m-0">Followers</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
-                                <div class="card">
-                                    <div class="social-graph-wrapper widget-linkedin">
-                                        <span class="s-icon"><i class="fa fa-linkedin"></i></span>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6 border-right">
-                                            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                                <h4 class="m-1"><span class="counter">89</span> k</h4>
-                                                <p class="m-0">Friends</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                                <h4 class="m-1"><span class="counter">119</span> k</h4>
-                                                <p class="m-0">Followers</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
-                                <div class="card">
-                                    <div class="social-graph-wrapper widget-googleplus">
-                                        <span class="s-icon"><i class="fa fa-google-plus"></i></span>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6 border-right">
-                                            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                                <h4 class="m-1"><span class="counter">89</span> k</h4>
-                                                <p class="m-0">Friends</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                                <h4 class="m-1"><span class="counter">119</span> k</h4>
-                                                <p class="m-0">Followers</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
-                                <div class="card">
-                                    <div class="social-graph-wrapper widget-twitter">
-                                        <span class="s-icon"><i class="fa fa-twitter"></i></span>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6 border-right">
-                                            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                                <h4 class="m-1"><span class="counter">89</span> k</h4>
-                                                <p class="m-0">Friends</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                                <h4 class="m-1"><span class="counter">119</span> k</h4>
-                                                <p class="m-0">Followers</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header"><h4 class="card-title">Web Server</h4></div>
+                        <div class="card-body">
+                            <div style="height:200px;background:#efefef;border:1px dashed #aaa;
+                                         display:flex;align-items:center;justify-content:center;opacity:0.7;">
+                                CPU Load Placeholder
                             </div>
                         </div>
                     </div>
                 </div>
 
             </div>
+
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header"><h4 class="card-title">Country</h4></div>
+                        <div class="card-body">
+
+                            <div style="height:280px; background:#fff; border:1px solid #ddd;
+                                         display:flex; align-items:center; justify-content:center;">
+                                <svg viewBox="0 0 800 400" width="100%" height="100%" style="opacity:0.9;">
+                                    <path fill="#d6d6d6" d="M100 150 L150 130 L200 160 L180 200 Z" />
+                                    <path fill="#bfbfbf" d="M250 100 L300 80 L350 120 L330 160 Z" />
+                                    <path fill="#b3b3b3" d="M400 150 L450 130 L500 140 L470 180 Z" />
+                                    <path fill="#c9c9c9" d="M550 180 L600 160 L650 190 L620 230 Z" />
+                                    <path fill="#d0d0d0" d="M300 220 L350 200 L400 230 L380 270 Z" />
+                                </svg>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header"><h4 class="card-title">New Orders</h4></div>
+                        <div class="card-body">
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th><th>Name</th><th>Product</th><th>Qty</th><th>Status</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr v-for="(o, i) in orders" :key="i">
+                                        <td><img :src="avatar" width="35" /></td>
+                                        <td>{{ o.name }}</td>
+                                        <td>{{ o.product }}</td>
+                                        <td>{{ o.qty }}</td>
+                                        <td>
+                                            <span :class="['badge', o.statusClass]">
+                                                {{ o.status }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-        </template>
+    </div>
+    </template>
 
 <script>
-
 export default {
-    name: "DashboardView",
     data() {
         return {
-            statWidgets: [
-                {
-                    text: "Today Expenses",
-                    value: 8500,
-                    progressValue: 85,
-                    progressClass: "progress-bar-success" // Matches green in image
-                },
-                {
-                    text: "Income Detail",
-                    value: 7800,
-                    progressValue: 78,
-                    progressClass: "progress-bar-primary" // Matches purple/blue in image
-                },
-                {
-                    text: "Task Completed",
-                    value: 500,
-                    progressValue: 50,
-                    progressClass: "progress-bar-warning" // Matches orange/yellow in image
-                },
-                {
-                    text: "Task Completed",
-                    value: 650,
-                    progressValue: 65,
-                    progressClass: "progress-bar-danger" // Matches red in image
-                },
+            avatar: "./assets/images/avatar/1.png",
+
+            statCards: [
+                { title: "Today Expenses", value: 8500, color: "progress-bar-success", width: "85%" },
+                { title: "Income Detail", value: 7800, color: "progress-bar-primary", width: "75%" },
+                { title: "Task Completed", value: 500, color: "progress-bar-warning", width: "50%" },
+                { title: "Task Completed", value: 650, color: "progress-bar-danger", width: "65%" },
             ],
-            newOrders: [
-                { image: "./images/avatar/1.png", name: "Lew Shawon", product: "Dell-985", quantity: "456 pcs", status: "Done", statusClass: "badge-success" },
-                { image: "./images/avatar/1.png", name: "Lew Shawon", product: "Asus-565", quantity: "456 pcs", status: "Pending", statusClass: "badge-warning" },
-                { image: "./images/avatar/1.png", name: "John Doe", product: "MacBook-Pro", quantity: "12 pcs", status: "Done", statusClass: "badge-success" },
-                { image: "./images/avatar/1.png", name: "Jane Smith", product: "HP EliteBook", quantity: "50 pcs", status: "Pending", statusClass: "badge-warning" },
-                { image: "./images/avatar/1.png", name: "Alex Smith", product: "Monitor 24", quantity: "10 pcs", status: "Done", statusClass: "badge-success" },
-                { image: "./images/avatar/1.png", name: "Chris Lee", product: "USB Hub", quantity: "200 pcs", status: "Pending", statusClass: "badge-warning" },
+
+            projects: [
+                { name: "Website", width: "40%", percent: 40 },
+                { name: "Android", width: "60%", percent: 60 },
+                { name: "IOS", width: "70%", percent: 70 },
+                { name: "Mobile", width: "90%", percent: 90 },
+            ],
+
+            orders: [
+                { name: "Lew Shawon", product: "Dell-985", qty: "456 pcs", status: "Done", statusClass: "badge-success" },
+                { name: "Lew Shawon", product: "Asus-565", qty: "456 pcs", status: "Pending", statusClass: "badge-warning" },
+                { name: "Lew Shawon", product: "Dell-985", qty: "456 pcs", status: "Done", statusClass: "badge-success" },
             ]
-        };
+        }
     }
 }
 </script>
+
+<style scoped>
+.widget-line-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+.widget-line-list li {
+    padding: 10px 20px;
+    text-align: center;
+}
+</style>
