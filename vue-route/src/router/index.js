@@ -8,6 +8,7 @@ import ThemeView from '@/views/ThemeView.vue';
 // Layout and Dashboard components
 import DashboardLayout from '@/layout/DashboardLayout.vue';
 import DashboardView from '@/views/DashboardView.vue';
+import UserList from '@/views/users/UserList.vue';
 
 const routes = [
   // 1. Authentication/Unprotected Routes (Not using the Dashboard Layout)
@@ -52,6 +53,11 @@ const routes = [
     path: '/contact',
     name: 'contact',
     component: ContactView
+  },
+  {
+    path: '/user',
+    name: 'user',
+    component: UserList
   },
       // You would add other protected pages here, e.g.:
       /*
