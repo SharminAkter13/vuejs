@@ -112,7 +112,7 @@ export default {
             <div v-if="errors.email" class="text-danger small mt-1">{{ errors.email[0] }}</div>
           </div>
           <!-- Optional password input if you want users to set password -->
-          <!--
+          
           <div class="col-md-3">
             <input
               v-model="newUser.password"
@@ -124,7 +124,7 @@ export default {
             />
             <div v-if="errors.password" class="text-danger small mt-1">{{ errors.password[0] }}</div>
           </div>
-          -->
+         
           <div class="col-md-4 d-grid">
             <button type="submit" class="btn btn-success" :disabled="loading">
               {{ loading ? "Saving..." : "Add User" }}
