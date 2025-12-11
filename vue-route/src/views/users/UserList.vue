@@ -1,82 +1,3 @@
-<script>
-import axios from "axios";
-
-export default {
-  data() {
-    return {
-      users: [],
-      newUser: { name: "", email: "", password: "" },
-      errors: {},        // To store validation errors
-      loading: false,    // To disable buttons while request is in progress
-      successMsg: "",    // To show success feedback
-      errorMsg: "",      // To show generic error feedback
-    };
-  },
-
-  mounted() {
-    this.getUsers();
-  },
-
-  methods: {
-    async getUsers() {
-      try {
-        const res = await axios.get("http://127.0.0.1:8000/api/users");
-        this.users = res.data.data;
-      } catch (error) {
-        this.errorMsg = "Failed to fetch users.";
-        console.error(error);
-      }
-    },
-
-    async createUser() {
-      this.errors = {};
-      this.successMsg = "";
-      this.errorMsg = "";
-      this.loading = true;
-
-      // Using default password for now, you can add a password input if you want.
-      const payload = { ...this.newUser, password: "Password123" };
-
-      try {
-        const res = await axios.post("http://127.0.0.1:8000/api/users", payload);
-        this.users.unshift(res.data.data);
-        this.successMsg = "User added successfully!";
-        this.newUser = { name: "", email: "", password: "" };
-      } catch (error) {
-        if (error.response && error.response.status === 422) {
-          // Validation errors
-          this.errors = error.response.data.errors || {};
-        } else {
-          this.errorMsg = "An error occurred while adding user.";
-          console.error(error);
-        }
-      } finally {
-        this.loading = false;
-      }
-    },
-
-    async deleteUser(id) {
-      if (!confirm("Are you sure you want to delete this user?")) return;
-
-      this.errorMsg = "";
-      this.successMsg = "";
-      this.loading = true;
-
-      try {
-        await axios.delete(`http://127.0.0.1:8000/api/users/${id}`);
-        this.users = this.users.filter(u => u.id !== id);
-        this.successMsg = "User deleted successfully!";
-      } catch (error) {
-        this.errorMsg = "Failed to delete user.";
-        console.error(error);
-      } finally {
-        this.loading = false;
-      }
-    }
-  }
-};
-</script>
-
 <template>
   <div class="container mt-5">
     <h1 class="mb-4 text-center">User Management</h1>
@@ -111,8 +32,6 @@ export default {
             />
             <div v-if="errors.email" class="text-danger small mt-1">{{ errors.email[0] }}</div>
           </div>
-          <!-- Optional password input if you want users to set password -->
-          
           <div class="col-md-3">
             <input
               v-model="newUser.password"
@@ -124,7 +43,6 @@ export default {
             />
             <div v-if="errors.password" class="text-danger small mt-1">{{ errors.password[0] }}</div>
           </div>
-         
           <div class="col-md-4 d-grid">
             <button type="submit" class="btn btn-success" :disabled="loading">
               {{ loading ? "Saving..." : "Add User" }}
@@ -171,6 +89,85 @@ export default {
     </div>
   </div>
 </template>
+
+<script>
+import axios from "axios";
+
+const API_BASE = "https://fin-serve-bank.sharmin.online/laravel/api";
+
+export default {
+  data() {
+    return {
+      users: [],
+      newUser: { name: "", email: "", password: "" },
+      errors: {},        // Validation errors
+      loading: false,    // To disable buttons while request in progress
+      successMsg: "",    // Success feedback message
+      errorMsg: "",      // Generic error message
+    };
+  },
+
+  mounted() {
+    this.getUsers();
+  },
+
+  methods: {
+    async getUsers() {
+      try {
+        const res = await axios.get(`${API_BASE}/users`);
+        this.users = res.data.data;
+      } catch (error) {
+        this.errorMsg = "Failed to fetch users.";
+        console.error(error);
+      }
+    },
+
+    async createUser() {
+      this.errors = {};
+      this.successMsg = "";
+      this.errorMsg = "";
+      this.loading = true;
+
+      const payload = { ...this.newUser };
+
+      try {
+        const res = await axios.post(`${API_BASE}/users`, payload);
+        this.users.unshift(res.data.data);
+        this.successMsg = "User added successfully!";
+        this.newUser = { name: "", email: "", password: "" };
+      } catch (error) {
+        if (error.response && error.response.status === 422) {
+          this.errors = error.response.data.errors || {};
+        } else {
+          this.errorMsg = "An error occurred while adding user.";
+          console.error(error);
+        }
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async deleteUser(id) {
+      if (!confirm("Are you sure you want to delete this user?")) return;
+
+      this.errorMsg = "";
+      this.successMsg = "";
+      this.loading = true;
+
+      try {
+        await axios.delete(`${API_BASE}/users/${id}`);
+        this.users = this.users.filter(u => u.id !== id);
+        this.successMsg = "User deleted successfully!";
+      } catch (error) {
+        this.errorMsg = "Failed to delete user.";
+        console.error(error);
+      } finally {
+        this.loading = false;
+      }
+    }
+  }
+};
+</script>
 
 <style>
 body {
